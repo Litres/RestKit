@@ -156,7 +156,7 @@
  @return `YES` if the response matches the base URL, path pattern, and status codes set of the receiver, else `NO`.
  @see `matchesURL:`
  */
-- (BOOL)matchesResponse:(NSHTTPURLResponse *)response;
+- (BOOL)matchesResponse:(NSHTTPURLResponse *)response request:(NSURLRequest *)request;
 
 /**
  Returns a dictionary of parsed arguments extracted from the URL of the given response object.
