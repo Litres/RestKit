@@ -459,6 +459,21 @@ static NSArray *RKRemoveProperty(NSArray *array, RKPropertyMapping *mapping)
 
     for (RKPropertyMapping *propertyMapping in self.propertyMappings) {
         RKPropertyMapping *otherPropertyMapping = [otherMapping mappingForSourceKeyPath:propertyMapping.sourceKeyPath];
+        if ([propertyMapping isMemberOfClass:[RKRelationshipMapping class]] &&
+            [otherPropertyMapping isMemberOfClass:[RKRelationshipMapping class]])
+        {
+            if ([(RKRelationshipMapping*)propertyMapping mapping] == self || [(RKRelationshipMapping *)otherPropertyMapping mapping] == otherMapping)
+            {
+                if ([(RKRelationshipMapping*)propertyMapping mapping] == self && [(RKRelationshipMapping *)otherPropertyMapping mapping] == otherMapping)
+                {
+                    continue;
+                }
+                else
+                {
+                    return NO;
+                }
+            }
+        }
         if (! [propertyMapping isEqualToMapping:otherPropertyMapping]) return NO;
     }
 
