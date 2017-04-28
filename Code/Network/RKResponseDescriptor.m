@@ -142,8 +142,18 @@ extern NSString *RKStringDescribingRequestMethod(RKRequestMethod method);
     }
 }
 
-- (BOOL)matchesResponse:(NSHTTPURLResponse *)response
+- (BOOL)matchesResponse:(NSHTTPURLResponse *)response request:(NSURLRequest *)request;
 {
+    if (![[response.URL absoluteString] isEqualToString:request.URL.absoluteString]) // maybe redirection
+    {
+        RKLogDebug(@"Response URL - %@, not equal to request URL - %@", [response.URL absoluteString], [request.URL absoluteString]);
+        
+        if (self.baseURL)
+        {
+            return [self matchesPath:RKPathAndQueryStringFromURLRelativeToURL(request.URL, self.baseURL) parsedArguments:nil] ||
+            [self matchesPath:RKPathAndQueryStringFromURLRelativeToURL(response.URL, self.baseURL) parsedArguments:nil];
+        }
+    }
     return [self matchesResponse:response parsedArguments:nil];
 }
 
