@@ -22,6 +22,7 @@
 #import "RKResponseDescriptor.h"
 #import "RKHTTPUtilities.h"
 #import "RKMapping.h"
+#import "RKLog.h"
 
 // Cloned from AFStringFromIndexSet -- method should be non-static for reuse
 NSString *RKStringFromIndexSet(NSIndexSet *indexSet);
