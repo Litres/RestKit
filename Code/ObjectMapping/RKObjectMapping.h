@@ -300,6 +300,12 @@
 @property (nonatomic, assign) BOOL assignsDefaultValueForMissingAttributes;
 
 /**
+ Works only if assignsDefaultValueForMissingAttributes is YES.
+ Contains attributes that should be resetted to default value
+ */
+@property (nonatomic, strong) NSArray *attributesToAssignDefaultValue;
+
+/**
  When `YES`, any relationships that have mappings defined but are not present within the source object will be set to `nil`, clearing any existing value.
 
  **Default**: `NO`

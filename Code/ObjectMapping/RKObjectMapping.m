@@ -164,6 +164,7 @@ static RKSourceToDesinationKeyTransformationBlock defaultSourceToDestinationKeyT
         self.propertiesByDestinationKeyPath = [NSMutableDictionary new];
         self.assignsDefaultValueForMissingAttributes = NO;
         self.assignsNilForMissingRelationships = NO;
+        self.attributesToAssignDefaultValue = nil;
         self.forceCollectionMapping = NO;
         self.performsKeyValueValidation = YES;
         self.sourceToDestinationKeyTransformationBlock = defaultSourceToDestinationKeyTransformationBlock;
@@ -176,6 +177,7 @@ static RKSourceToDesinationKeyTransformationBlock defaultSourceToDestinationKeyT
 - (void)copyPropertiesFromMapping:(RKObjectMapping *)mapping
 {
     self.assignsDefaultValueForMissingAttributes = mapping.assignsDefaultValueForMissingAttributes;
+    self.attributesToAssignDefaultValue = mapping.attributesToAssignDefaultValue;
     self.assignsNilForMissingRelationships = mapping.assignsNilForMissingRelationships;
     self.forceCollectionMapping = mapping.forceCollectionMapping;
     self.performsKeyValueValidation = mapping.performsKeyValueValidation;

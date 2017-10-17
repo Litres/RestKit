@@ -105,9 +105,21 @@
 {
     id transformedValue = nil;
     if (value == nil) {
-        if (mapping.objectMapping.assignsDefaultValueForMissingAttributes) {
-            // Serialize nil values as null
-            transformedValue = [NSNull null];
+        if (mapping.objectMapping.assignsDefaultValueForMissingAttributes)
+        {
+            if ([mapping.objectMapping.attributesToAssignDefaultValue count] > 0)
+            {
+                if ([mapping.objectMapping.attributesToAssignDefaultValue containsObject:keyPath])
+                {
+                    // Serialize nil values as null
+                    transformedValue = [NSNull null];
+                }
+            }
+            else
+            {
+                // Serialize nil values as null
+                transformedValue = [NSNull null];
+            }
         }
     } else if ([value isKindOfClass:[NSDate class]]) {
         [mapping.valueTransformer transformValue:value toValue:&transformedValue ofClass:[NSString class] error:nil];

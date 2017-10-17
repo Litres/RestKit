@@ -774,9 +774,21 @@ static NSArray *RKInsertInMetadataList(NSArray *list, id metadata1, id metadata2
 
             // Optionally set the default value for missing values
             if (objectMapping.assignsDefaultValueForMissingAttributes) {
-                [self.destinationObject setValue:[objectMapping defaultValueForAttribute:destinationKeyPath]
-                                      forKeyPath:destinationKeyPath];
-                RKLogTrace(@"Setting nil for missing attribute value at keyPath '%@'", sourceKeyPath);
+                if (objectMapping.attributesToAssignDefaultValue.count > 0)
+                {
+                    if ([objectMapping.attributesToAssignDefaultValue containsObject:destinationKeyPath])
+                    {
+                        [self.destinationObject setValue:[objectMapping defaultValueForAttribute:destinationKeyPath]
+                                              forKeyPath:destinationKeyPath];
+                        RKLogTrace(@"Setting nil for missing attribute value at keyPath '%@'", sourceKeyPath);
+                    }
+                }
+                else
+                {
+                    [self.destinationObject setValue:[objectMapping defaultValueForAttribute:destinationKeyPath]
+                                          forKeyPath:destinationKeyPath];
+                    RKLogTrace(@"Setting nil for missing attribute value at keyPath '%@'", sourceKeyPath);
+                }
             }
         }
 
